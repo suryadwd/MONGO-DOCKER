@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alpha AI Beep App</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -16,6 +20,18 @@
       color: #fff;
       font-family: Arial, sans-serif;
       overflow: hidden;
+    }
+
+    /* Background video styling */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5); /* Optional: darkens video for text visibility */
     }
 
     #main-button {
@@ -47,61 +63,34 @@
   </style>
 </head>
 <body>
+
+  <!-- Background video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="istockphoto-1315388795-640_adpp_is.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Button and Display -->
   <button id="main-button">CLICK ME</button>
   <div id="alpha-display">ALPHA AI</div>
 
-  <!-- <script>
+  <script>
     const button = document.getElementById('main-button');
     const display = document.getElementById('alpha-display');
 
-    function beep(volume, frequency, duration) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      oscillator.type = 'square';
-      oscillator.frequency.value = frequency;
-      gainNode.gain.value = volume;
-
-      oscillator.start();
-
-      setTimeout(() => {
-        oscillator.stop();
-        ctx.close();
-      }, duration);
-    }
+    // Load your custom sound
+    const explosionSound = new Audio('explosion-42132.mp3');
 
     button.addEventListener('click', () => {
-      // Make a loud beep
-      beep(1, 1000, 500); // volume (0-1), freq Hz, duration ms
+      // Play custom explosion sound
+      explosionSound.play();
 
       // Wait a bit before showing Alpha AI
       setTimeout(() => {
         button.style.display = 'none';
         display.style.display = 'block';
-      }, 600);
+      }, 1000); // Adjust if your sound is longer/shorter
     });
-  </script> -->
-<script>
-  const button = document.getElementById('main-button');
-  const display = document.getElementById('alpha-display');
-
-  // Load your custom sound
-  const explosionSound = new Audio('explosion-42132.mp3');
-
-  button.addEventListener('click', () => {
-    // Play custom explosion sound
-    explosionSound.play();
-
-    // Wait a bit before showing Alpha AI
-    setTimeout(() => {
-      button.style.display = 'none';
-      display.style.display = 'block';
-    }, 1000); // Adjust if your sound is longer/shorter
-  });
-</script>
+  </script>
 </body>
 </html>
