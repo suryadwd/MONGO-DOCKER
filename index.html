@@ -22,7 +22,6 @@
       overflow: hidden;
     }
 
-    /* Background video styling */
     #bg-video {
       position: fixed;
       top: 0;
@@ -52,44 +51,49 @@
     #alpha-display {
       display: none;
       text-align: center;
-      animation: fadeIn 2s ease-in-out;
     }
 
-    #alpha-display h4 {
+    /* Typewriter-like synced animation */
+    .type-seq {
       font-size: 2rem;
       font-weight: normal;
-      text-transform: lowercase;
+      text-transform: uppercase;
       margin: 0;
+      white-space: pre;
+      display: flex;
+      justify-content: center;
+     
     }
 
-    h1{
-      font-size: 12rem;
-      margin: 0;
+    .type-seq span {
+      opacity: 0;
+      animation: typeBlink 4s infinite;
+    }
+
+    .type-seq span:nth-child(1) { animation-delay: 0s; }
+    .type-seq span:nth-child(2) { animation-delay: 0.5s; }
+    .type-seq span:nth-child(3) { animation-delay: 1s; }
+    .type-seq span:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes typeBlink {
+      0%, 90%, 100% { opacity: 0; }
+      10%, 80% { opacity: 1; }
+    }
+
+    /* AI heartbeat */
+    #ai-text {
+      font-size: 6rem;
+      margin: 10px 0 0 0;
       text-transform: uppercase;
+      animation: heartbeat 4s infinite;
+      transform-origin: center;
       color: rgb(44, 48, 44);
       text-shadow: 0 0 20px rgba(0, 255, 0, 0.373), 0 0 30px #0f0, 0 0 40px #0f0;
     }
 
-    #alpha-display h1 {
-      font-size: 6rem;
-      margin: 10px 0 0 0;
-      text-transform: uppercase;
-      animation: heartbeat 1s infinite;
-      transform-origin: center;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
   </style>
 </head>
@@ -104,24 +108,25 @@
   <!-- Button and Display -->
   <button id="main-button">CLICK ME</button>
   <div id="alpha-display">
-    <h4>l &nbsp; & &nbsp; mc</h4>
-    <h1>AI</h1>
+    <h4 class="type-seq">
+      <span>L &nbsp;</span>
+      <span>& &nbsp;  </span>
+      <span>M</span>
+      <span>C</span>
+
+    </h4>
+    <h1 id="ai-text">AI</h1>
   </div>
 
   <script>
     const button = document.getElementById('main-button');
     const display = document.getElementById('alpha-display');
-
-    // Load your custom sound
     const explosionSound = new Audio('explosion-42132.mp3');
 
     button.addEventListener('click', () => {
       explosionSound.play();
-
-      setTimeout(() => {
-        button.style.display = 'none';
-        display.style.display = 'block';
-      }, 1000);
+      button.style.display = 'none';
+      display.style.display = 'block';
     });
   </script>
 </body>
