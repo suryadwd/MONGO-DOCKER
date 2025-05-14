@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alpha AI Beep App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #main-button {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #main-button:hover {
+      transform: scale(1.1);
+    }
+
+    #alpha-display {
+      display: none;
+      font-size: 5rem;
+      font-weight: bold;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <button id="main-button">CLICK ME</button>
+  <div id="alpha-display">ALPHA AI</div>
+
+  <script>
+    const button = document.getElementById('main-button');
+    const display = document.getElementById('alpha-display');
+
+    function beep(volume, frequency, duration) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      oscillator.type = 'square';
+      oscillator.frequency.value = frequency;
+      gainNode.gain.value = volume;
+
+      oscillator.start();
+
+      setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+      }, duration);
+    }
+
+    button.addEventListener('click', () => {
+      // Make a loud beep
+      beep(1, 1000, 500); // volume (0-1), freq Hz, duration ms
+
+      // Wait a bit before showing Alpha AI
+      setTimeout(() => {
+        button.style.display = 'none';
+        display.style.display = 'block';
+      }, 600);
+    });
+  </script>
+</body>
+</html>
