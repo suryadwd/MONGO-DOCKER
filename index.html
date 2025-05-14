@@ -50,7 +50,7 @@
   <button id="main-button">CLICK ME</button>
   <div id="alpha-display">ALPHA AI</div>
 
-  <script>
+  <!-- <script>
     const button = document.getElementById('main-button');
     const display = document.getElementById('alpha-display');
 
@@ -84,6 +84,24 @@
         display.style.display = 'block';
       }, 600);
     });
-  </script>
+  </script> -->
+<script>
+  const button = document.getElementById('main-button');
+  const display = document.getElementById('alpha-display');
+
+  // Load your custom sound
+  const explosionSound = new Audio('explosion-42132.mp3');
+
+  button.addEventListener('click', () => {
+    // Play custom explosion sound
+    explosionSound.play();
+
+    // Wait a bit before showing Alpha AI
+    setTimeout(() => {
+      button.style.display = 'none';
+      display.style.display = 'block';
+    }, 1000); // Adjust if your sound is longer/shorter
+  });
+</script>
 </body>
 </html>
